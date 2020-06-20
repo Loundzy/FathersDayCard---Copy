@@ -2,9 +2,12 @@ $(function () {
 
     //want to grab all the image elements
     let imagesEl = [...document.querySelectorAll('.uk-card img')]
-    var number = 0
-    var firstImg
-
+    var obj = {
+        number: 0,
+        firstSrc: null,
+        firstEl: null,
+        secondSrc: null
+    }
     //grab all the images
     let images = [
         "images/us1.jpg",
@@ -28,18 +31,15 @@ $(function () {
         img.setAttribute('src', images[i])
     })
 
-    //disable further clicks until images are rehidden if incorrect?? flag that is set before any display or logic runs to match
-    if(number == 0) {
-        //create a click event for the images
-        $('.hiding-element').click(function(){
+    //create a click event for the images
+    $('.hiding-element').click(function(){
+        //disable further clicks until images are rehidden if incorrect?? flag that is set before any display or logic runs to match
+        if (obj.number != 2) {
             $(this).addClass('hide-el')
-            //check if image is the same based on string in the src
-            
-
-            countClicks(number, this, firstImg)
-        })
-    }
-    
+            countClicks(obj, $(this).parent().children('img'))
+        }
+    })
+         
     //if they match return and wait for click event
 
 })
@@ -52,25 +52,38 @@ function shuffle(a) {
     return a;
 }
 
-function countClicks(number, elem, firstImg) {
+function countClicks(obj, elem) {
     //first click
-    if(number == 0) {
+    if(obj.number == 0) {
         //temp store the src of first clicked item
-        firstImg = elem.getAttribute('src')
+        obj.firstEl = elem.parent().children('div')
+        obj.firstSrc = elem.attr('src')
 
         //set flag that waits for second image click
-        return number++
+        obj.number++
+
+        return obj
     } else {
-        var secondEl = elem.getAttribute('src') 
-        if(secondEl != firstImg) {
+        obj.secondSrc = elem.attr('src')
+        //check if image is the same based on string in the src
+        if(obj.secondSrc != obj.firstSrc) {
+            obj.number = 2
             //set timeout that hides the tiles again if they are incorrect
             setTimeout(function(){ 
                 //hide both image if they are not the same
-                $(`img[src="${secondEl}"]`).each(function(image) { 
-                    this.removeClass('hide-el')
-                })
+                // $(`img[src="${obj.secondSrc}"]`).each(function(image) { 
+                //     $(this).removeClass('hide-el')
+                // })
+                obj.firstEl.removeClass('hide-el')
+                elem.parent().children('div').removeClass('hide-el')
+                obj.number = 0
             }, 2500)
+        } else {
+            obj.number = 0
         }
-        return number = 0
+
+        return obj
     }
 }
+
+//maybe use object?
