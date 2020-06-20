@@ -10,14 +10,14 @@ $(function () {
     }
     //grab all the images
     let images = [
-        "images/us1.jpg",
-        "images/us2.jpg",
-        "images/us3.jpg",
-        "images/us4.jpg",
-        "images/us5.jpg",
-        "images/us6.jpg",
-        "images/us7.jpg",
-        "images/us8.jpg"
+        "images/jl1.webp",
+        "images/jl2.jpg",
+        "images/jl3.jpg",
+        "images/jl4.jpg",
+        "images/jl5.jpg",
+        "images/jl6.webp",
+        "images/jl7.jpg",
+        "images/jl8.jpg"
     ]   
 
     //duplicate images
@@ -77,7 +77,7 @@ function countClicks(obj, elem) {
                 obj.firstEl.removeClass('hide-el')
                 elem.parent().children('div').removeClass('hide-el')
                 obj.number = 0
-            }, 2500)
+            }, 2000)
         } else {
             obj.number = 0
         }
