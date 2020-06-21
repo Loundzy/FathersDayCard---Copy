@@ -77,7 +77,7 @@ function countClicks(obj, elem) {
                 obj.firstEl.removeClass('hide-el')
                 elem.parent().children('div').removeClass('hide-el')
                 obj.number = 0
-            }, 2000)
+            }, 1500)
         } else {
             obj.number = 0
         }
